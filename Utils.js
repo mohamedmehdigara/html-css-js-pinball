@@ -10,4 +10,15 @@ function isCollision(rect1, rect2) {
 
 // Function to check collision between the ball and a circular bumper
 function isBallBumperCollision(ball, bumper) {
-    const ballRadius = ball.offsetWidth /
+    const ballRadius = ball.offsetWidth / 2;
+    const ballCenterX = ball.offsetLeft + ballRadius;
+    const ballCenterY = ball.offsetTop + ballRadius;
+    const bumperRadius = bumper.offsetWidth / 2;
+    const bumperCenterX = bumper.offsetLeft + bumperRadius;
+    const bumperCenterY = bumper.offsetTop + bumperRadius;
+    const distanceBetweenCenters = Math.sqrt((ballCenterX - bumperCenterX) ** 2 + (ballCenterY - bumperCenterY) ** 2);
+    return distanceBetweenCenters < ballRadius + bumperRadius;
+}
+
+// Export utility functions for use in other files
+export { isCollision, isBallBumperCollision };
