@@ -1,0 +1,23 @@
+/* Animations.css */
+
+/* Animation for ball movement */
+@keyframes moveBall {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(var(--dx), var(--dy)); }
+}
+
+/* Animation for flipper rotation */
+@keyframes rotateFlipper {
+    0% { transform: rotate(var(--startAngle)); }
+    100% { transform: rotate(var(--endAngle)); }
+}
+
+/* Apply animation to ball element */
+#ball {
+    animation: moveBall linear infinite;
+}
+
+/* Apply animation to flipper elements */
+.flipper {
+    animation: rotateFlipper linear infinite;
+}

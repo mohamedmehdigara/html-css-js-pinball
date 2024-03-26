@@ -1,0 +1,19 @@
+/* Fonts.css */
+
+/* Define @font-face rules for custom fonts */
+@font-face {
+    font-family: 'CustomFont1';
+    src: url('path_to_custom_font1.ttf') format('truetype'); /* Replace 'path_to_custom_font1.ttf' with the actual path */
+}
+
+@font-face {
+    font-family: 'CustomFont2';
+    src: url('path_to_custom_font2.ttf') format('truetype'); /* Replace 'path_to_custom_font2.ttf' with the actual path */
+}
+
+/* Define font-family declarations */
+body {
+    font-family: 'CustomFont1', sans-serif; /* Use custom font 1 as the default font */
+}
+
+/* Define additional font styles as needed */
