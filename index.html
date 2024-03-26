@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container">
+        <!-- Pinball game elements -->
         <div id="ball"></div>
         <div class="flipper" id="leftFlipper"></div>
         <div class="flipper" id="rightFlipper"></div>
@@ -16,6 +17,20 @@
         <div class="bumper" id="bumper3"></div>
         <div class="bumper" id="bumper4"></div>
         <div class="bumper" id="bumper5"></div>
+
+        <!-- Scoreboard -->
+        <div class="scoreboard">
+            <span>Score: </span>
+            <span id="score">0</span>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <p>Press 'A' and 'P' keys to control the flippers.</p>
+            <p>Bounce the ball off the flippers and bumpers to score points.</p>
+            <p>Don't let the ball fall below the flippers!</p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
