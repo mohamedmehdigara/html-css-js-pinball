@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+}
+
+.container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background-color: #eee;
+}
+
+#ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.paddle {
+    position: absolute;
+    bottom: 10px;
+    left: 150px; /* Adjust the initial position */
+    width: 100px;
+    height: 20px;
+    background-color: blue;
+}
+
+.wall {
+    position: absolute;
+    background-color: green;
+    width: 10px;
+    height: 600px;
+}
+
+#leftWall {
+    left: 0;
+}
+
+#rightWall {
+    right: 0;
+}
