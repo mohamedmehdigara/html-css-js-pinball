@@ -4,6 +4,7 @@
 const levels = [
     {
         name: "Level 1",
+        targetScore: 200, // Score required to complete the level
         bumpers: [
             { id: "bumper1", x: 50, y: 200 },
             { id: "bumper2", x: 150, y: 100 },
