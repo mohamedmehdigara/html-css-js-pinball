@@ -12,8 +12,13 @@
 }
 
 /* Define font-family declarations */
+/* Use custom fonts with fallback to system fonts */
 body {
-    font-family: 'CustomFont1', sans-serif; /* Use custom font 1 as the default font */
+    font-family: 'CustomFont1', Arial, sans-serif; /* Use custom font 1 with fallback to Arial and then sans-serif */
+}
+
+h1, h2, h3 {
+    font-family: 'CustomFont2', Helvetica, sans-serif; /* Use custom font 2 with fallback to Helvetica and then sans-serif */
 }
 
 /* Define additional font styles as needed */

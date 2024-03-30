@@ -17,6 +17,20 @@ const levels = [
             { id: "rightFlipper", x: 350 }
         ]
     },
+    {
+        name: "Level 2",
+        targetScore: 300,
+        bumpers: [
+            { id: "bumper6", x: 100, y: 300 },
+            { id: "bumper7", x: 200, y: 200 },
+            { id: "bumper8", x: 300, y: 300 },
+            { id: "bumper9", x: 200, y: 400 }
+        ],
+        flippers: [
+            { id: "leftFlipper", x: 50 },
+            { id: "rightFlipper", x: 350 }
+        ]
+    },
     // Define additional levels here
 ];
 

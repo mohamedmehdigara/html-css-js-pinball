@@ -12,12 +12,30 @@
     100% { transform: rotate(var(--endAngle)); }
 }
 
+/* Additional animation for ball bounce */
+@keyframes ballBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
 /* Apply animation to ball element */
 #ball {
-    animation: moveBall linear infinite;
+    animation: moveBall linear infinite, ballBounce ease-in-out infinite; /* Apply ball movement and bounce */
 }
 
 /* Apply animation to flipper elements */
 .flipper {
     animation: rotateFlipper linear infinite;
+}
+
+/* Styling for bumper animations */
+.bumper {
+    animation: bounceBumper linear infinite; /* Define animation for bumpers */
+}
+
+/* Keyframes for bumper animation */
+@keyframes bounceBumper {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
 }
