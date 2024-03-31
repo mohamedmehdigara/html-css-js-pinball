@@ -1,3 +1,5 @@
+// Game.js// Game.js
+
 import levels from './Levels.js';
 import settings from './Settings.js';
 import { isCollision } from './Utils.js';
@@ -7,6 +9,8 @@ class Game {
         // Constants for game elements
         this.ball = document.getElementById('ball');
         this.scoreDisplay = document.getElementById('score');
+        this.leftFlipper = document.getElementById('leftFlipper');
+        this.rightFlipper = document.getElementById('rightFlipper');
 
         // Game variables
         this.x = 190; // Initial position of the ball
@@ -17,10 +21,6 @@ class Game {
         this.currentLevelIndex = 0; // Current level index
         this.currentLevel = levels[this.currentLevelIndex]; // Current level data
         this.levelComplete = false; // Flag to track level completion
-
-        // Flipper angles
-        this.leftFlipperAngle = settings.leftFlipperAngle;
-        this.rightFlipperAngle = settings.rightFlipperAngle;
 
         // Keyboard controls
         this.controls = {
@@ -57,80 +57,58 @@ class Game {
         });
 
         // Update target score display
-        this.updateScoreDisplay();
+        this.scoreDisplay.textContent = `Score: ${this.score} / Target: ${currentLevelData.targetScore}`;
     }
 
     // Function to update the game state
     update() {
         if (!this.levelComplete) {
             // Move the ball
-            this.moveBall();
+            this.x += this.dx;
+            this.y += this.dy;
 
-            // Check for collisions
-            this.checkCollisions();
+            // Collision detection with walls
+            if (this.x + this.dx > 380 || this.x + this.dx < 0) {
+                this.dx = -this.dx; // Reverse direction
+            }
+            if (this.y + this.dy < 0) {
+                this.dy = -this.dy; // Reverse direction
+            } else if (this.y + this.dy > 580) {
+                // Game over condition
+                this.gameOver();
+            }
+
+            // Collision detection with flippers
+            if (this.y + this.dy > 540 && this.y + this.dy < 560) {
+                if (this.controls.leftFlipper.pressed && this.x + this.dx > this.leftFlipper.offsetLeft && this.x + this.dx < this.leftFlipper.offsetLeft + 100) {
+                    this.dx = -this.dx; // Reverse direction
+                    this.increaseScore(10); // Increase score for hitting the flipper
+                }
+                if (this.controls.rightFlipper.pressed && this.x + this.dx > this.rightFlipper.offsetLeft && this.x + this.dx < this.rightFlipper.offsetLeft + 100) {
+                    this.dx = -this.dx; // Reverse direction
+                    this.increaseScore(10); // Increase score for hitting the flipper
+                }
+            }
+
+            // Collision detection with bumpers
+            this.currentLevel.bumpers.forEach(bumper => {
+                if (isCollision({ x: this.x, y: this.y, width: 20, height: 20 }, bumper)) {
+                    this.dx = -this.dx; // Reverse direction
+                    this.dy = -this.dy;
+                    this.increaseScore(20); // Increase score for hitting a bumper
+                }
+            });
 
             // Check for level completion
-            if (this.checkLevelCompletion()) {
+            if (this.score >= this.currentLevel.targetScore) {
                 this.levelComplete = true;
                 setTimeout(() => {
                     this.advanceLevel();
                 }, 1000); // Delay before advancing to next level
             }
 
-            // Redraw the ball
-            this.draw();
+            this.draw(); // Redraw the ball
         }
-    }
-
-    // Function to move the ball
-    moveBall() {
-        this.x += this.dx;
-        this.y += this.dy;
-
-        // Collision detection with walls
-        if (this.x + this.dx > 380 || this.x + this.dx < 0) {
-            this.dx = -this.dx; // Reverse direction
-        }
-        if (this.y + this.dy < 0) {
-            this.dy = -this.dy; // Reverse direction
-        } else if (this.y + this.dy > 580) {
-            // Game over condition
-            this.gameOver();
-        }
-    }
-
-    // Function to check for collisions
-    checkCollisions() {
-        // Collision detection with flippers
-        if (this.y + this.dy > 540 && this.y + this.dy < 560) {
-            if (this.controls.leftFlipper.pressed && this.isBallHitFlipper(this.currentLevel.flippers[0])) {
-                this.dx = -this.dx; // Reverse direction
-                this.increaseScore(10); // Increase score for hitting the flipper
-            }
-            if (this.controls.rightFlipper.pressed && this.isBallHitFlipper(this.currentLevel.flippers[1])) {
-                this.dx = -this.dx; // Reverse direction
-                this.increaseScore(10); // Increase score for hitting the flipper
-            }
-        }
-
-        // Collision detection with bumpers
-        this.currentLevel.bumpers.forEach(bumper => {
-            if (isCollision({ x: this.x, y: this.y, width: 20, height: 20 }, bumper)) {
-                this.dx = -this.dx; // Reverse direction
-                this.dy = -this.dy;
-                this.increaseScore(20); // Increase score for hitting a bumper
-            }
-        });
-    }
-
-    // Function to check if the ball hits a flipper
-    isBallHitFlipper(flipper) {
-        return this.x + this.dx > flipper.x && this.x + this.dx < flipper.x + 100;
-    }
-
-    // Function to check for level completion
-    checkLevelCompletion() {
-        return this.score >= this.currentLevel.targetScore;
     }
 
     // Function to draw game elements
@@ -149,11 +127,6 @@ class Game {
     // Function to increase player score
     increaseScore(points) {
         this.score += points;
-        this.updateScoreDisplay();
-    }
-
-    // Function to update the score display
-    updateScoreDisplay() {
         this.scoreDisplay.textContent = `Score: ${this.score} / Target: ${this.currentLevel.targetScore}`;
     }
 
@@ -181,24 +154,27 @@ class Game {
     }
 
     // Event handler for keydown event
-    handleKeyDown(event) {
-        const key = event.key.toLowerCase();
-        if (key === this.controls.leftFlipper.key) {
-            this.controls.leftFlipper.pressed = true;
-        } else if (key === this.controls.rightFlipper.key) {
-            this.controls.rightFlipper.pressed = true;
-        }
+    // Event handler for keydown event
+handleKeyDown(event) {
+    console.log('Key down event:', event.key);
+    const key = event.key.toLowerCase();
+    if (key === this.controls.leftFlipper.key) {
+        this.controls.leftFlipper.pressed = true;
+    } else if (key === this.controls.rightFlipper.key) {
+        this.controls.rightFlipper.pressed = true;
     }
+}
 
-    // Event handler for keyup event
-    handleKeyUp(event) {
-        const key = event.key.toLowerCase();
-        if (key === this.controls.leftFlipper.key) {
-            this.controls.leftFlipper.pressed = false;
-        } else if (key === this.controls.rightFlipper.key) {
-            this.controls.rightFlipper.pressed = false;
-        }
+// Event handler for keyup event
+handleKeyUp(event) {
+    console.log('Key up event:', event.key);
+    const key = event.key.toLowerCase();
+    if (key === this.controls.leftFlipper.key) {
+        this.controls.leftFlipper.pressed = false;
+    } else if (key === this.controls.rightFlipper.key) {
+        this.controls.rightFlipper.pressed = false;
     }
+}
 }
 
 // Export Game class for use in other files

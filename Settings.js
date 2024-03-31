@@ -6,6 +6,7 @@ const settings = {
     leftFlipperAngle: -30, // Initial angle of the left flipper
     rightFlipperAngle: 30, // Initial angle of the right flipper
     bumperColors: ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6'], // Array of bumper colors
+    targetScores: [200, 300, 400], // Target scores for each level
     // Add more configurable settings as needed
 };
 
