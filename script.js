@@ -25,4 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('beforeunload', function() {
         saveData('pinball_game_data', game.saveGameState());
     });
+
+    // Event listeners for flipper movement
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'a') {
+            game.controls.leftFlipper.pressed = true;
+        } else if (event.key === 'q') {
+            game.controls.leftFlipper.pressed = false;
+        } else if (event.key === 'p') {
+            game.controls.rightFlipper.pressed = true;
+        } else if (event.key === 'm') {
+            game.controls.rightFlipper.pressed = false;
+        }
+    });
 });

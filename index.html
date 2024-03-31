@@ -25,8 +25,24 @@
     </div>
     
     <!-- Scripts -->
-    <script type="module" src="script.js"></script>
-    <script type="module" src="Game.js"></script>
-    <script type="module" src="LocalStorage.js"></script>
+    <script src="script.js" type="module"></script>
+    <script src="Game.js" type="module"></script>
+    <script src="LocalStorage.js" type="module"></script>
+
+    <!-- Event listeners for flipper movement -->
+    <script>
+        document.getElementById('leftFlipper').addEventListener('a', function() {
+            game.controls.leftFlipper.pressed = true;
+        });
+        document.getElementById('leftFlipper').addEventListener('q', function() {
+            game.controls.leftFlipper.pressed = false;
+        });
+        document.getElementById('rightFlipper').addEventListener('p', function() {
+            game.controls.rightFlipper.pressed = true;
+        });
+        document.getElementById('rightFlipper').addEventListener('m', function() {
+            game.controls.rightFlipper.pressed = false;
+        });
+    </script>
 </body>
 </html>
