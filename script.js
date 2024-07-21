@@ -5,6 +5,19 @@ import { loadData, saveData } from './LocalStorage.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if there is existing saved game data
+// Update score and level elements dynamically
+const scoreElement = document.getElementById('score');
+const levelElement = document.getElementById('level');
+
+game.onScoreChange((newScore) => {
+  scoreElement.textContent = `Score: ${newScore}`;
+});
+
+game.onLevelChange((newLevel) => {
+  levelElement.textContent = `Level: ${newLevel}`;
+});
+
+
     const savedGameData = loadData('pinball_game_data');
     let game;
 
