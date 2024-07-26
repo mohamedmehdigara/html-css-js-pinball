@@ -10,7 +10,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Game elements -->
         <div id="ball"></div>
         <div class="flipper" id="leftFlipper"></div>
         <div class="flipper" id="rightFlipper"></div>
@@ -19,19 +18,21 @@
         <div class="bumper" id="bumper3"></div>
         <div class="bumper" id="bumper4"></div>
         <div class="bumper" id="bumper5"></div>
-        
-        <!-- Score display -->
+
         <div id="score" class="score">Score: 0</div>
         <div id="level" class="level">Level: 1</div>
 
+        <div id="game-over" class="game-over">
+            <h2>Game Over!</h2>
+            <p>Your Score: <span id="final-score"></span></p>
+            <button id="restart-button">Restart</button>
+        </div>
     </div>
-    
-    <!-- Scripts -->
+
     <script src="script.js" type="module"></script>
     <script src="Game.js" type="module"></script>
     <script src="LocalStorage.js" type="module"></script>
 
-    <!-- Event listeners for flipper movement -->
     <script>
         document.getElementById('leftFlipper').addEventListener('a', function() {
             game.controls.leftFlipper.pressed = true;
